@@ -157,7 +157,7 @@
               stroke-dasharray="113.04" stroke-dashoffset="113.04"
               stroke-linecap="round" transform="rotate(-90 22 22)"/>
           </svg>
-          <span id="progressText" class="text-sm font-bold" style="color:#10b981;font-family:'Poppins',sans-serif;">0/5</span>
+          <span id="progressText" class="text-sm font-bold" style="color:#10b981;font-family:'Poppins',sans-serif;">0/6</span>
         </div>
         <div style="border-left:1px solid #e5e7eb;padding-left:16px;">
           <span class="text-xs px-3 py-2 rounded-md font-semibold" style="background:#ede9fe;color:#5b21b6;border:1px solid #ddd6fe;">CASO PATENTE</span>
@@ -430,13 +430,160 @@
       </div>
     </section>
 
+    <!-- ═══════════════════════════════════════════════
+         MISIÓN 6: DOCUMENTO FINAL ENSAMBLADO
+    ═══════════════════════════════════════════════ -->
+    <section id="mission6" class="max-w-3xl mx-auto px-4 w-full fade-in hidden" style="animation-delay:0.1s;">
+      <div class="task-card" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);border-color:#10b981;">
+        <div class="flex items-center gap-3 mb-2">
+          <span id="m6badge" class="text-xs font-bold px-3 py-1.5 rounded-md" style="background:#059669;color:white;font-family:'Poppins',sans-serif;">📄 MISIÓN 6</span>
+          <span class="text-sm font-semibold" style="color:#065f46;">Vista final del expediente de patente</span>
+        </div>
+        <p class="text-sm" style="color:#065f46;">¡Excelente trabajo! Aquí está el <strong>documento completo y ensamblado</strong> con todo lo que procesaste. Así queda una solicitud de patente real.</p>
+      </div>
+
+      <!-- DOCUMENTO FINAL OFICIAL -->
+      <div class="mt-4" style="background:white;border:1px solid #d1fae5;border-radius:0;box-shadow:0 8px 24px rgba(0,0,0,0.12);position:relative;overflow:hidden;max-width:820px;margin:20px auto;font-family:'Poppins',sans-serif;">
+
+        <!-- Barra lateral verde oficial -->
+        <div style="position:absolute;left:0;top:0;bottom:0;width:6px;background:linear-gradient(to bottom,#10b981,#059669);"></div>
+
+        <!-- Sello APROBADO -->
+        <div style="position:absolute;top:20px;right:24px;border:3px solid #10b981;color:#10b981;padding:6px 14px;font-weight:700;font-size:12px;transform:rotate(-8deg);opacity:0.85;letter-spacing:2px;">✓ APROBADO</div>
+
+        <!-- Membrete institucional -->
+        <div style="padding:32px 60px 0 60px;border-bottom:2px solid #f3f4f6;margin-left:6px;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;">
+            <div style="width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,#7c3aed,#5b21b6);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+              <span style="font-size:22px;">⚖️</span>
+            </div>
+            <div>
+              <p style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:2px;text-transform:uppercase;margin:0;">Oficina Regional de Patentes</p>
+              <p style="font-size:10px;color:#9ca3af;margin:2px 0 0 0;">Expediente N° PCT-2025-PRO3K · Fecha de recepción: <span id="final-date"></span></p>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:32px 60px;margin-left:6px;" id="finalDocBody">
+
+          <!-- TÍTULO -->
+          <div style="text-align:center;margin-bottom:32px;padding-bottom:20px;border-bottom:1px dashed #e5e7eb;">
+            <p style="font-size:10px;font-weight:600;color:#9ca3af;letter-spacing:3px;text-transform:uppercase;margin-bottom:6px;">SOLICITUD DE PATENTE DE INVENCIÓN</p>
+            <h1 style="font-size:24px;font-weight:700;color:#1f2937;margin:0 0 6px 0;">Sillón Multifuncional Procrastinator 3000</h1>
+            <p style="font-size:13px;color:#6b7280;font-style:italic;">El invento que hace todo... para que no hagas nada.</p>
+          </div>
+
+          <!-- MEMORIA DESCRIPTIVA -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px;">I.</span>
+              <h2 style="font-size:15px;font-weight:700;color:#1f2937;margin:0;">MEMORIA DESCRIPTIVA</h2>
+            </div>
+            <p style="font-size:14px;color:#374151;line-height:1.9;margin:0 0 0 28px;">
+              El <strong>Procrastinator 3000</strong> es un sillón inteligente diseñado para evitar que el usuario realice tareas, automatizando actividades como responder mensajes, generar excusas y proporcionar entretenimiento y alimentos. Funciona mediante sensores y sistemas automatizados inspirados en tecnologías <em>IoT</em> y asistentes virtuales.
+            </p>
+          </div>
+
+          <!-- PLANOS / IMAGEN -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px;">II.</span>
+              <h2 style="font-size:15px;font-weight:700;color:#1f2937;margin:0;">PLANOS Y COMPONENTES PRINCIPALES</h2>
+            </div>
+            <div style="margin:0 0 0 28px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start;">
+              <div id="final-img-container" style="flex-shrink:0;border:1px solid #e5e7eb;border-radius:8px;overflow:hidden;background:#f9fafb;padding:8px;text-align:center;">
+                <img id="final-img" src="" alt="Plano técnico del Procrastinator 3000" style="max-width:200px;max-height:180px;object-fit:contain;border-radius:4px;"/>
+                <p style="font-size:10px;color:#9ca3af;margin:6px 0 0 0;">Fig. 1 — Plano técnico general</p>
+              </div>
+              <div style="flex:1;min-width:180px;">
+                <p style="font-size:13px;color:#374151;line-height:1.8;margin:0 0 8px 0;">Componentes integrados:</p>
+                <ul style="font-size:13px;color:#374151;line-height:2;margin:0;padding-left:20px;">
+                  <li>Generador de excusas automáticas</li>
+                  <li>Dispensador de snacks incorporado</li>
+                  <li>Pantalla de realidad alterna inmersiva</li>
+                  <li>Asistente automático de mensajes</li>
+                  <li>Sistema de reclinación y masaje profundo</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- REIVINDICACIÓN -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px;">III.</span>
+              <h2 style="font-size:15px;font-weight:700;color:#1f2937;margin:0;">REIVINDICACIÓN</h2>
+            </div>
+            <p style="font-size:14px;color:#374151;line-height:1.9;margin:0 0 0 28px;">
+              Sillón automatizado que integra sistemas de confort y evasión de tareas mediante inteligencia artificial y automatización.
+            </p>
+          </div>
+
+          <!-- RESUMEN -->
+          <div style="margin-bottom:24px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px;">IV.</span>
+              <h2 style="font-size:15px;font-weight:700;color:#1f2937;margin:0;">RESUMEN</h2>
+            </div>
+            <div style="background:#f9fafb;border-left:3px solid #7c3aed;border-radius:0 6px 6px 0;padding:12px 16px;margin:0 0 0 28px;">
+              <p style="font-size:13px;color:#374151;line-height:1.8;margin:0;">
+                El Procrastinator 3000 es un sillón inteligente que automatiza tareas cotidianas para maximizar el confort del usuario. Integra funciones como generación de excusas, respuesta automática de mensajes y dispensación de alimentos, utilizando tecnologías inspiradas en el Internet de las Cosas.
+              </p>
+            </div>
+          </div>
+
+          <!-- ANTECEDENTES -->
+          <div style="margin-bottom:32px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+              <span style="background:#ede9fe;color:#7c3aed;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:1px;">V.</span>
+              <h2 style="font-size:15px;font-weight:700;color:#1f2937;margin:0;">ANTECEDENTES</h2>
+            </div>
+            <p style="font-size:14px;color:#374151;line-height:1.9;margin:0 0 6px 28px;">Como referencia a tecnologías existentes, se pueden revisar:</p>
+            <ul style="font-size:13px;color:#374151;line-height:2;margin:0 0 0 28px;padding-left:20px;">
+              <li>Sillones inteligentes y automatizados: <span style="color:#7c3aed;font-size:12px;">patents.google.com/patent/US20130211692</span></li>
+              <li>Sistemas de automatización (IoT): <span style="color:#7c3aed;font-size:12px;">wipo.int/patentscope/en/</span></li>
+            </ul>
+          </div>
+
+          <!-- PÁRRAFO FINAL (reivindicación del inventor) -->
+          <div id="final-closing" style="background:linear-gradient(135deg,#f5f3ff,#ede9fe);border:2px solid #c4b5fd;border-radius:8px;padding:18px 22px;margin-bottom:28px;">
+            <p style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px 0;">Declaración del Inventor</p>
+            <p id="final-closing-text" style="font-size:14px;color:#1f2937;line-height:1.9;margin:0;font-style:italic;"></p>
+          </div>
+
+          <!-- PIE DEL DOCUMENTO -->
+          <div style="border-top:2px solid #f3f4f6;padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:gap;gap:16px;">
+            <div>
+              <p style="font-size:10px;color:#9ca3af;margin:0 0 4px 0;">Remitido por:</p>
+              <p id="final-email" style="font-size:13px;color:#374151;font-weight:600;margin:0;"></p>
+              <p id="final-inst" style="font-size:12px;color:#6b7280;margin:2px 0 0 0;"></p>
+            </div>
+            <div style="text-align:right;">
+              <div style="display:inline-block;border:2px solid #10b981;padding:8px 20px;border-radius:4px;">
+                <p style="font-size:10px;color:#10b981;font-weight:700;letter-spacing:2px;margin:0;">EXPEDIENTE VALIDADO</p>
+                <p style="font-size:10px;color:#9ca3af;margin:3px 0 0 0;" id="final-footer-date"></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Botón imprimir / guardar -->
+      <div class="flex justify-center mt-4 mb-2">
+        <button class="btn-action text-white" style="background:#7c3aed;" onclick="window.print()">
+          <i data-lucide="printer" style="width:16px;height:16px;"></i> Imprimir / Guardar PDF
+        </button>
+      </div>
+    </section>
+
     <!-- BANNER DE COMPLETADO -->
     <div id="completionBanner" class="hidden max-w-3xl mx-auto px-4 w-full fade-in">
       <div class="rounded-xl p-8 text-center" style="background:linear-gradient(135deg,#4ade80,#22c55e);border:3px solid #16a34a;">
         <div style="font-size:52px;">🏆</div>
         <h2 class="text-2xl font-bold mt-4" style="color:white;">¡Solicitud de Patente Completada!</h2>
-        <p class="mt-2" style="color:#dcfce7;">Restauraste el expediente del Procrastinator 3000 con éxito. El inventor está de camino a la Oficina de Patentes... desde su sillón.</p>
-        <div class="mt-4 text-sm" style="color:#bbf7d0;">✅ Texto ordenado · ✅ Formato corregido · ✅ Imagen identificada · ✅ Párrafo añadido · ✅ Informe enviado</div>
+        <p class="mt-2" style="color:#dcfce7;">Restauraste el expediente del Procrastinator 3000 con éxito. El inventor ya está celebrando... desde su sillón.</p>
+        <div class="mt-4 text-sm" style="color:#bbf7d0;">✅ Texto ordenado · ✅ Formato corregido · ✅ Imagen identificada · ✅ Párrafo añadido · ✅ Informe enviado · ✅ Documento visualizado</div>
       </div>
     </div>
 
@@ -449,7 +596,8 @@
 <script>
   lucide.createIcons();
 
-  const completed = { m1: false, m2: false, m3: false, m4: false, m5: false };
+  const completed = { m1: false, m2: false, m3: false, m4: false, m5: false, m6: false };
+  let sillonImgSrc = '';
 
   function showToast(msg, color) {
     const t = document.getElementById('toast');
@@ -461,14 +609,14 @@
 
   function updateProgress() {
     const done = Object.values(completed).filter(Boolean).length;
-    document.getElementById('progressText').textContent = `${done}/5`;
+    document.getElementById('progressText').textContent = `${done}/6`;
     const circ = 2 * Math.PI * 18;
-    document.getElementById('progressCircle').style.strokeDashoffset = circ - (circ * done / 5);
-    if (done === 5) {
+    document.getElementById('progressCircle').style.strokeDashoffset = circ - (circ * done / 6);
+    if (done === 6) {
       setTimeout(() => {
         document.getElementById('completionBanner').classList.remove('hidden');
         document.getElementById('completionBanner').scrollIntoView({ behavior: 'smooth' });
-      }, 500);
+      }, 600);
     }
   }
 
@@ -574,6 +722,7 @@
     const opt = document.getElementById('imgOpt' + num);
     if (type === 'correct') {
       const img = opt.querySelector('img');
+      sillonImgSrc = img.src;
       dz.classList.add('has-image');
       dz.innerHTML = `<div class="text-center p-2"><img src="${img.src}" style="max-height:170px;object-fit:contain;border-radius:8px;"/><p class="text-xs mt-2 font-semibold" style="color:#059669;">✅ ¡Imagen correcta — Sillón Procrastinator 3000!</p></div>`;
       opt.classList.add('correct');
@@ -646,6 +795,49 @@
     markBadge('m5badge');
     showToast('✅ Misión 5 completada — Informe enviado a la Oficina de Patentes', '#059669');
     updateProgress();
+    // Reveal and populate Mission 6
+    setTimeout(() => buildFinalDoc(), 400);
+  }
+
+  function buildFinalDoc() {
+    const sec = document.getElementById('mission6');
+    sec.classList.remove('hidden');
+    sec.scrollIntoView({ behavior: 'smooth' });
+
+    // Date
+    const today = new Date().toLocaleDateString('es-UY', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('final-date').textContent = today;
+    document.getElementById('final-footer-date').textContent = today;
+
+    // Image
+    if (sillonImgSrc) document.getElementById('final-img').src = sillonImgSrc;
+
+    // Closing paragraph
+    const name = document.getElementById('inputName').value.trim();
+    const invento = document.getElementById('inputInvento').value.trim();
+    const claim = document.getElementById('inputClaim').value;
+    document.getElementById('final-closing-text').innerHTML =
+      `"El abajo firmante, <strong>${name || '—'}</strong>, declara que la invención denominada <strong><em>${invento || '—'}</em></strong> es original y solicita su protección mediante patente de invención. La principal reivindicación es: <strong>${claim || '—'}</strong>."`;
+
+    // Footer
+    document.getElementById('final-email').textContent = document.getElementById('inputEmail').value.trim() || '—';
+    document.getElementById('final-inst').textContent = document.getElementById('inputInst').value.trim() || '—';
+
+    // Reflexión (si hay)
+    const ref = document.getElementById('inputRef').value.trim();
+    if (ref) {
+      const body = document.getElementById('finalDocBody');
+      const refDiv = document.createElement('div');
+      refDiv.style.cssText = 'background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:14px 18px;margin-bottom:20px;';
+      refDiv.innerHTML = `<p style="font-size:10px;font-weight:700;color:#92400e;letter-spacing:2px;text-transform:uppercase;margin:0 0 6px 0;">Reflexión del estudiante</p><p style="font-size:13px;color:#374151;line-height:1.8;margin:0;font-style:italic;">"${ref}"</p>`;
+      body.insertBefore(refDiv, document.getElementById('final-closing'));
+    }
+
+    // Trigger M6 complete
+    markBadge('m6badge', '✓ COMPLETA');
+    completed.m6 = true;
+    updateProgress();
+    lucide.createIcons();
   }
 </script>
 </body>
