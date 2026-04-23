@@ -184,9 +184,9 @@
 
   .checkmark { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: white; font-size: 12px; font-weight: 700; }
   </style>
- </head>
- <body class="h-full overflow-auto" style="background: #f5f5f5;">
-  <div id="app" class="h-full w-full overflow-auto" style="background: #f5f5f5;">
+</head>
+<body style="margin:0; background:#f5f5f5; overflow-y:auto;">
+  <div id="app" style="min-height:100%;width:100%;" style="background: #f5f5f5;">
    <!-- Header Office -->
    <header class="w-full" style="background: white; border-bottom: 1px solid #e5e7eb;">
     <div class="px-6 py-4 flex items-center justify-between" style="border-bottom: 1px solid #e5e7eb;">
@@ -348,7 +348,7 @@
       <p class="text-xs mt-4 mb-3" style="color:#666;">Haz clic en el texto y luego selecciona el estilo:</p>
       <div id="m5highlight" class="text-sm p-3 rounded mb-3 cursor-pointer" style="background:#fef3c7;border:2px solid #fbbf24;color:#333;"><span class="word-style" data-word="crítico" onclick="highlightWord(this, 'bold')">crítico</span> — <span class="word-style" data-word="revisarse" onclick="highlightWord(this, 'italic')">revisarse</span> — <span class="word-style" data-word="priorizar" onclick="highlightWord(this, 'underline')">priorizar</span>
       </div>
-      <div class="flex justify-end"><button id="btnM5" class="btn-action text-white opacity-50 cursor-not-allowed" style="background:#3b82f6;" disabled onclick="checkM5()"><span class="flex items-center gap-2"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Verificar estilos</span></button>
+      <div class="flex justify-end"><button id="btnM5" class="btn-action text-white opacity-50 cursor-not-allowed" style="background:#3b82f6;" disabled onclick="checkM5Btn()"><span class="flex items-center gap-2"><i data-lucide="check-circle" style="width:14px;height:14px;"></i> Verificar estilos</span></button>
       </div>
      </div>
     </section><!-- MISSION 6: Create Table -->
@@ -403,293 +403,6 @@
   const defaultConfig = {
     main_title: 'OFICINA DE CASOS',
     case_label: 'CASO #47-B',
-  };
-
-  let completed = { m1: false, m2: false, m3: false, m4: false, m5: false, m6: false };
-
-  // Element SDK
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange: async (config) => {
-      document.getElementById('mainTitle').textContent = config.main_title || defaultConfig.main_title;
-      document.getElementById('caseLabel').textContent = config.case_label || defaultConfig.case_label;
-    },
-    mapToCapabilities: (config) => ({
-      recolorables: [],
-      borderables: [],
-      fontEditable: undefined,
-      fontSizeable: undefined,
-    }),
-    mapToEditPanelValues: (config) => new Map([
-      ['main_title', config.main_title || defaultConfig.main_title],
-      ['case_label', config.case_label || defaultConfig.case_label],
-    ])
-  });
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 2500);
-  }
-
-  function updateProgress() {
-    const done = [completed.m1, completed.m2, completed.m3].filter(Boolean).length;
-    document.getElementById('progressText').textContent = `${done}/3`;
-    const circle = document.getElementById('progressCircle');
-    const circ = 2 * Math.PI * 18;
-    circle.style.strokeDashoffset = circ - (circ * done / 3);
-
-    if (done === 3) {
-      document.getElementById('completionBanner').classList.remove('hidden');
-      document.getElementById('completionBanner').scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  function markBadge(id) {
-    const b = document.getElementById(id);
-    b.style.background = '#166534';
-    b.style.color = '#bbf7d0';
-    b.textContent = '✓ COMPLETA';
-  }
-
-  function fixFormatting() {
-    if (completed.m1) return;
-    const title = document.getElementById('docTitle');
-    const body = document.getElementById('docBody');
-    const list = document.getElementById('docList');
-
-    title.className = 'fixed-title mb-6';
-    body.className = 'fixed-body mb-6';
-    list.querySelectorAll('li').forEach(li => li.className = 'fixed-list');
-    list.className = 'fixed-list space-y-2 list-disc pl-6';
-
-    const stamp = document.querySelector('.stamp');
-    if (stamp) { stamp.style.color = '#10b981'; stamp.style.borderColor = '#10b981'; stamp.textContent = '✅ RESTAURADO'; }
-
-    document.getElementById('btnFix').style.background = '#10b981';
-    document.getElementById('btnFix').innerHTML = '<span class="flex items-center gap-2"><span class="checkmark">✓</span> Formato corregido</span>';
-    document.getElementById('btnFix').disabled = true;
-
-    completed.m1 = true;
-    markBadge('m1badge');
-    showToast('✅ Misión 1 completada — Formato restaurado');
-    updateProgress();
-  }
-
-  function showImagePicker() {
-    if (completed.m2) return;
-    document.getElementById('imgPicker').classList.remove('hidden');
-  }
-
-  function pickImage(n) {
-    if (completed.m2) return;
-    const slot = document.getElementById('imgSlot');
-    if (n === 2) {
-      slot.className = 'img-placeholder filled';
-      slot.innerHTML = '<span class="flex flex-col items-center gap-1"><svg width="56" height="48" viewBox="0 0 56 48"><rect x="2" y="2" width="52" height="44" rx="3" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><rect x="8" y="8" width="18" height="14" rx="1" fill="none" stroke="#059669" stroke-width="1.5"/><rect x="30" y="8" width="18" height="14" rx="1" fill="none" stroke="#059669" stroke-width="1.5"/><rect x="8" y="26" width="18" height="14" rx="1" fill="none" stroke="#059669" stroke-width="1.5"/><rect x="30" y="26" width="18" height="14" rx="1" fill="none" stroke="#059669" stroke-width="1.5"/><circle cx="14" cy="14" r="2.5" fill="#dc2626"/><circle cx="42" cy="14" r="2.5" fill="#dc2626"/><circle cx="36" cy="36" r="2.5" fill="#dc2626"/></svg><span class="text-xs font-semibold">Mapa de planta ✓</span></span>';
-      slot.style.cursor = 'default';
-      document.getElementById('imgPicker').classList.add('hidden');
-
-      completed.m2 = true;
-      markBadge('m2badge');
-      showToast('✅ Misión 2 completada — Imagen insertada');
-      updateProgress();
-    } else {
-      slot.innerHTML = '<span class="flex items-center gap-2" style="color:#ef4444;"><i data-lucide="x-circle" style="width:16px;height:16px;"></i> Imagen incorrecta, intenta de nuevo</span>';
-      lucide.createIcons();
-      setTimeout(() => {
-        if (!completed.m2) slot.innerHTML = '<span class="flex items-center gap-2"><i data-lucide="image-plus" style="width:20px;height:20px;"></i> Haz clic para insertar imagen</span>';
-        lucide.createIcons();
-      }, 1500);
-    }
-  }
-
-  function checkSlideReady() {
-    const a = document.getElementById('inputAction').value;
-    const d = document.getElementById('inputDate').value;
-    const n = document.getElementById('inputName').value.trim();
-    const btn = document.getElementById('btnSlide');
-    if (a && d && n) {
-      btn.disabled = false;
-      btn.classList.remove('opacity-50', 'cursor-not-allowed');
-    } else {
-      btn.disabled = true;
-      btn.classList.add('opacity-50', 'cursor-not-allowed');
-    }
-  }
-
-  function generateSlide() {
-    if (completed.m3) return;
-    const action = document.getElementById('inputAction').value;
-    const date = new Date(document.getElementById('inputDate').value);
-    const dateStr = date.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-    const name = document.getElementById('inputName').value.trim();
-
-    const preview = document.getElementById('slidePreview');
-    preview.className = 'rounded-lg p-4 fade-in';
-    preview.style.background = '#ecfdf5';
-    preview.style.border = '2px solid #10b981';
-    preview.style.cursor = 'default';
-    preview.innerHTML = `<p class="text-sm" style="color:#1a1a2e;line-height:1.8;font-family:'Poppins',sans-serif;">En conclusión, se recomienda <strong>${action}</strong> en los puntos de control afectados antes del <strong>${dateStr}</strong>. El responsable asignado es <strong>${name}</strong>.</p>`;
-
-    document.getElementById('btnSlide').style.background = '#10b981';
-    document.getElementById('btnSlide').innerHTML = '<span class="flex items-center gap-2"><span class="checkmark">✓</span> Conclusión generada</span>';
-    document.getElementById('btnSlide').disabled = true;
-
-    completed.m3 = true;
-    markBadge('m3badge');
-    showToast('✅ Misión 3 completada — Párrafo añadido');
-    updateProgress();
-  }
-
-  lucide.createIcons();
-</script> html, body { height: 100%; margin: 0; } * { box-sizing: border-box; } body { font-family: 'DM Sans', sans-serif; background: #f5f5f5; } .mono { font-family: 'JetBrains Mono', monospace; } /* Broken document styles */ .broken-title { font-size: 8px; font-family: 'Comic Sans MS', cursive; color: #ccc; letter-spacing: 8px; } .broken-body { font-size: 6px; font-family: 'Papyrus', fantasy; color: #e0e0e0; line-height: 0.9; } .broken-list { font-size: 32px; font-family: 'Impact', sans-serif; color: red; text-transform: uppercase; } /* Fixed styles */ .fixed-title { font-size: 24px; font-family: 'DM Sans', sans-serif; color: #1a1a2e; font-weight: 700; letter-spacing: 0; transition: all 0.5s; } .fixed-body { font-size: 16px; font-family: 'DM Sans', sans-serif; color: #333; line-height: 1.8; transition: all 0.5s; } .fixed-list { font-size: 16px; font-family: 'DM Sans', sans-serif; color: #1a1a2e; text-transform: none; transition: all 0.5s; } /* Toolbar */ .toolbar { background: white; border-bottom: 1px solid #e5e7eb; padding: 12px 20px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); } .toolbar-group { display: flex; gap: 4px; align-items: center; padding: 0 8px; border-right: 1px solid #e5e7eb; } .toolbar-group:last-child { border-right: none; } .toolbar-btn { width: 32px; height: 32px; border: 1px solid #d1d5db; border-radius: 4px; background: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 13px; font-weight: 500; } .toolbar-btn:hover { background: #f3f4f6; border-color: #9ca3af; } .toolbar-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; } .doc-page { background: white; border: 1px solid #e5e7eb; border-radius: 0; padding: 40px 60px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; overflow: hidden; margin: 20px auto; max-width: 800px; min-height: 600px; line-height: 2; } .doc-page::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(to bottom, #ef4444, #dc2626); } .stamp { position: absolute; top: 20px; right: 24px; border: 3px solid #ef4444; color: #ef4444; padding: 6px 14px; font-weight: 700; font-size: 12px; transform: rotate(15deg); opacity: 0.8; letter-spacing: 2px; } .task-card { background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #f59e0b; border-radius: 8px; padding: 16px 20px; margin: 16px 0; font-size: 15px; } .img-placeholder { border: 3px dashed #bfdbfe; border-radius: 8px; display: flex; align-items: center; justify-content: center; height: 120px; background: #f0f9ff; color: #3b82f6; font-size: 14px; cursor: pointer; transition: all 0.3s; font-weight: 500; } .img-placeholder:hover { border-color: #3b82f6; background: #eff6ff; } .img-placeholder.filled { border: 3px solid #10b981; background: #ecfdf5; color: #059669; } .slide-missing { border: 2px dashed #d1d5db; border-radius: 8px; min-height: 100px; display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(45deg, #fafafa, #fafafa 10px, #f3f4f6 10px, #f3f4f6 20px); color: #9ca3af; cursor: pointer; transition: all 0.3s; font-weight: 500; } .slide-missing:hover { border-color: #8b5cf6; color: #8b5cf6; } .btn-action { padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; } .btn-action:active { transform: scale(0.98); } .progress-ring { transition: stroke-dashoffset 0.6s ease; } .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); padding: 14px 28px; border-radius: 8px; font-weight: 600; font-size: 14px; z-index: 100; opacity: 0; transition: all 0.4s ease; pointer-events: none; } .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; } @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } } .fade-in { animation: fadeSlideIn 0.5s ease forwards; } @keyframes pulse-border { 0%, 100% { border-color: #f59e0b; } 50% { border-color: #fbbf24; } } .pulse-border { animation: pulse-border 2s infinite; } .checkmark { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: #10b981; color: white; font-size: 12px; font-weight: 700; } 
-  <style>body { box-sizing: border-box; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <div id="app" class="h-full w-full overflow-auto" style="background: #f5f5f5;">
-   <!-- Header Office -->
-   <header class="w-full" style="background: white; border-bottom: 1px solid #e5e7eb;">
-    <div class="px-6 py-4 flex items-center justify-between" style="border-bottom: 1px solid #e5e7eb;">
-     <div class="flex items-center gap-3">
-      <div style="background: linear-gradient(135deg, #ef4444, #dc2626); width: 40px; height: 40px; border-radius: 6px; display: flex; align-items: center; justify-content: center;"><i data-lucide="file-text" style="width:24px;height:24px;color:white;"></i>
-      </div>
-      <div>
-       <h1 id="mainTitle" class="font-bold text-lg" style="color:#1f2937;font-family:'DM Sans',sans-serif;">OFICINA DE CASOS</h1>
-       <p class="text-xs" style="color:#6b7280;">Restauración Documental</p>
-      </div>
-     </div>
-     <div class="flex items-center gap-6">
-      <div id="progressArea" class="flex items-center gap-3">
-       <svg width="44" height="44" viewbox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#e5e7eb" stroke-width="3" /> <circle id="progressCircle" class="progress-ring" cx="22" cy="22" r="18" fill="none" stroke="#10b981" stroke-width="3" stroke-dasharray="113.04" stroke-dashoffset="113.04" stroke-linecap="round" transform="rotate(-90 22 22)" />
-       </svg><span id="progressText" class="text-sm font-bold" style="color:#10b981;font-family:'DM Sans',sans-serif;">0/6</span>
-      </div>
-      <div style="border-left: 1px solid #e5e7eb; padding-left: 16px;">
-       <span id="caseLabel" class="text-xs px-3 py-2 rounded-md" style="background:#fee2e2;color:#991b1b;border:1px solid #fecaca;font-weight:600;">CASO #47-B</span>
-      </div>
-     </div>
-    </div><!-- Toolbar -->
-    <div class="toolbar">
-     <div class="toolbar-group">
-      <button class="toolbar-btn" title="Deshacer"><i data-lucide="undo-2" style="width:16px;height:16px;"></i></button> <button class="toolbar-btn" title="Rehacer"><i data-lucide="redo-2" style="width:16px;height:16px;"></i></button>
-     </div>
-     <div class="toolbar-group">
-      <button id="boldBtn" class="toolbar-btn" title="Negrita (Ctrl+B)"><strong>B</strong></button> <button id="italicBtn" class="toolbar-btn" title="Cursiva (Ctrl+I)"><em>I</em></button> <button id="underlineBtn" class="toolbar-btn" title="Subrayado (Ctrl+U)"><u>U</u></button>
-     </div>
-     <div class="toolbar-group">
-      <select class="toolbar-btn" style="width:auto;padding:8px 12px;font-weight:500;"> <option>Párrafo</option> <option>Título 1</option> <option>Título 2</option> <option>Texto normal</option> </select> <select class="toolbar-btn" style="width:auto;padding:8px 12px;font-weight:500;"> <option>Times New Roman</option> <option selected>Arial</option> <option>Calibri</option> </select> <select class="toolbar-btn" style="width:auto;padding:8px 12px;font-weight:500;"> <option>11 pt</option> <option>12 pt</option> <option>14 pt</option> </select>
-     </div>
-    </div>
-   </header><!-- Main Content -->
-   <main class="w-full max-w-3xl mx-auto px-4 py-6 flex flex-col gap-6"><!-- Intro -->
-    <div class="fade-in" style="animation-delay:0.1s;">
-     <p class="text-sm" style="color:#94a3b8;">Se ha recibido un documento con <strong style="color:#e74c3c;">errores graves de formato</strong>. Como agente de restauración, debes completar las 3 misiones para recuperarlo.</p>
-    </div><!-- MISSION 1: Fix Formatting -->
-    <section id="mission1" class="fade-in" style="animation-delay:0.2s;">
-     <div class="task-card pulse-border">
-      <div class="flex items-center gap-2 mb-2"><span id="m1badge" class="mono text-xs font-bold px-2 py-0.5 rounded" style="background:#854d0e;color:#fef08a;">MISIÓN 1</span> <span class="text-sm font-semibold" style="color:#854d0e;">Corregir formato del documento</span>
-      </div>
-      <p class="text-xs" style="color:#92400e;">El título, cuerpo y lista tienen fuentes ilegibles. Pulsa "Restaurar formato" para corregirlos.</p>
-     </div>
-     <div class="doc-page mt-3">
-      <div class="stamp">
-       DAÑADO
-      </div>
-      <h2 id="docTitle" class="broken-title mb-3">Informe de Incidencias - Sector Norte</h2>
-      <p id="docBody" class="broken-body mb-3">Durante la inspección del 14 de marzo se detectaron múltiples anomalías en las instalaciones del sector norte. Los equipos de seguridad reportaron fallas en tres de los cinco puntos de control principales, requiriendo intervención inmediata del equipo técnico.</p>
-      <ul id="docList" class="broken-list space-y-1 list-disc pl-5">
-       <li>Punto de control A3 — Sensor desactivado</li>
-       <li>Punto de control B1 — Puerta bloqueada</li>
-       <li>Punto de control D2 — Sin energía</li>
-      </ul>
-      <div class="mt-4 flex justify-end"><button id="btnFix" class="btn-action text-white" style="background:#e74c3c;" onclick="fixFormatting()"> <span class="flex items-center gap-2"><i data-lucide="wrench" style="width:14px;height:14px;"></i> Restaurar formato</span> </button>
-      </div>
-     </div>
-    </section><!-- MISSION 2: Insert Image -->
-    <section id="mission2" class="fade-in" style="animation-delay:0.3s;">
-     <div class="task-card pulse-border">
-      <div class="flex items-center gap-2 mb-2"><span id="m2badge" class="mono text-xs font-bold px-2 py-0.5 rounded" style="background:#854d0e;color:#fef08a;">MISIÓN 2</span> <span class="text-sm font-semibold" style="color:#854d0e;">Insertar imagen faltante</span>
-      </div>
-      <p class="text-xs" style="color:#92400e;">El documento necesita un diagrama del mapa del sector. Selecciona la imagen correcta según la instrucción.</p>
-     </div>
-     <div class="doc-page mt-3">
-      <p class="text-sm mb-3" style="color:#555;"><em>Instrucción: "Insertar el <strong>mapa de planta</strong> que muestre los puntos de control del sector norte."</em></p>
-      <div id="imgSlot" class="img-placeholder" onclick="showImagePicker()"><span class="flex items-center gap-2"><i data-lucide="image-plus" style="width:18px;height:18px;"></i> Haz clic para insertar imagen</span>
-      </div>
-      <div id="imgPicker" class="mt-3 hidden">
-       <p class="text-xs font-semibold mb-2" style="color:#6366f1;">Elige la imagen correcta:</p>
-       <div class="grid grid-cols-3 gap-3">
-        <div class="rounded-lg p-3 text-center cursor-pointer border-2 border-transparent hover:border-indigo-400 transition-all" style="background:#f8fafc;" onclick="pickImage(1)">
-         <div class="flex items-center justify-center mb-2" style="height:50px;">
-          <svg width="48" height="40" viewbox="0 0 48 40">
-           <rect x="2" y="2" width="44" height="36" rx="3" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5" /><circle cx="15" cy="14" r="4" fill="#3b82f6" /><circle cx="33" cy="14" r="4" fill="#3b82f6" /><circle cx="24" cy="28" r="4" fill="#3b82f6" /><line x1="15" y1="14" x2="33" y2="14" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3" /><line x1="15" y1="14" x2="24" y2="28" stroke="#3b82f6" stroke-width="1" stroke-dasharray="3" />
-          </svg>
-         </div><span class="text-xs font-medium" style="color:#333;">Diagrama de red</span>
-        </div>
-        <div class="rounded-lg p-3 text-center cursor-pointer border-2 border-transparent hover:border-green-400 transition-all" style="background:#f0fdf4;" onclick="pickImage(2)">
-         <div class="flex items-center justify-center mb-2" style="height:50px;">
-          <svg width="48" height="40" viewbox="0 0 48 40">
-           <rect x="2" y="2" width="44" height="36" rx="3" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5" /><rect x="8" y="8" width="14" height="10" rx="1" fill="none" stroke="#16a34a" stroke-width="1" /><rect x="26" y="8" width="14" height="10" rx="1" fill="none" stroke="#16a34a" stroke-width="1" /><rect x="8" y="22" width="14" height="10" rx="1" fill="none" stroke="#16a34a" stroke-width="1" /><rect x="26" y="22" width="14" height="10" rx="1" fill="none" stroke="#16a34a" stroke-width="1" /><circle cx="12" cy="12" r="2" fill="#dc2626" /><circle cx="36" cy="12" r="2" fill="#dc2626" /><circle cx="30" cy="30" r="2" fill="#dc2626" /><text x="12" y="15" font-size="3" fill="#16a34a" text-anchor="middle">
-            A3
-           </text><text x="36" y="15" font-size="3" fill="#16a34a" text-anchor="middle">
-            B1
-           </text><text x="30" y="33" font-size="3" fill="#16a34a" text-anchor="middle">
-            D2
-           </text>
-          </svg>
-         </div><span class="text-xs font-medium" style="color:#333;">Mapa de planta ✓</span>
-        </div>
-        <div class="rounded-lg p-3 text-center cursor-pointer border-2 border-transparent hover:border-orange-400 transition-all" style="background:#fff7ed;" onclick="pickImage(3)">
-         <div class="flex items-center justify-center mb-2" style="height:50px;">
-          <svg width="48" height="40" viewbox="0 0 48 40">
-           <rect x="2" y="2" width="44" height="36" rx="3" fill="#ffedd5" stroke="#f97316" stroke-width="1.5" /><rect x="6" y="28" width="6" height="8" fill="#f97316" /><rect x="14" y="20" width="6" height="16" fill="#fb923c" /><rect x="22" y="12" width="6" height="24" fill="#f97316" /><rect x="30" y="18" width="6" height="18" fill="#fb923c" /><rect x="38" y="8" width="6" height="28" fill="#f97316" />
-          </svg>
-         </div><span class="text-xs font-medium" style="color:#333;">Gráfico de barras</span>
-        </div>
-       </div>
-      </div>
-     </div>
-    </section><!-- MISSION 3: Add Final Slide -->
-    <section id="mission3" class="fade-in" style="animation-delay:0.4s;">
-     <div class="task-card pulse-border">
-      <div class="flex items-center gap-2 mb-2"><span id="m3badge" class="mono text-xs font-bold px-2 py-0.5 rounded" style="background:#854d0e;color:#fef08a;">MISIÓN 3</span> <span class="text-sm font-semibold" style="color:#854d0e;">Añadir párrafo de conclusión</span>
-      </div>
-      <p class="text-xs" style="color:#92400e;">Falta el párrafo final. Sigue el modelo y completa los campos para generarlo.</p>
-     </div>
-     <div class="doc-page mt-3">
-      <p class="text-xs mb-2 font-semibold" style="color:#8b5cf6;">📋 Modelo a seguir:</p>
-      <div class="rounded p-3 mb-4 text-xs" style="background:#f5f3ff;border:1px solid #c4b5fd;color:#5b21b6;line-height:1.7;">
-       "En conclusión, se recomienda <strong>[acción]</strong> en los puntos de control afectados antes del <strong>[fecha límite]</strong>. El responsable asignado es <strong>[nombre]</strong>."
-      </div>
-      <div class="space-y-3 mb-4">
-       <div><label class="text-xs font-semibold block mb-1" style="color:#555;">Acción recomendada</label> <select id="inputAction" class="w-full text-sm rounded-md border px-3 py-2" style="border-color:#d1d5db;" onchange="checkSlideReady()"> <option value="">— Selecciona —</option> <option value="reparación inmediata">Reparación inmediata</option> <option value="inspección adicional">Inspección adicional</option> <option value="reemplazo de equipos">Reemplazo de equipos</option> </select>
-       </div>
-       <div><label class="text-xs font-semibold block mb-1" style="color:#555;">Fecha límite</label> <input id="inputDate" type="date" class="w-full text-sm rounded-md border px-3 py-2" style="border-color:#d1d5db;" onchange="checkSlideReady()">
-       </div>
-       <div><label class="text-xs font-semibold block mb-1" style="color:#555;">Responsable</label> <input id="inputName" type="text" placeholder="Nombre del agente" class="w-full text-sm rounded-md border px-3 py-2" style="border-color:#d1d5db;" oninput="checkSlideReady()">
-       </div>
-      </div>
-      <div id="slidePreview" class="slide-missing mb-3"><span class="text-sm">El párrafo final aparecerá aquí</span>
-      </div>
-      <div class="flex justify-end"><button id="btnSlide" class="btn-action text-white opacity-50 cursor-not-allowed" style="background:#8b5cf6;" disabled onclick="generateSlide()"> <span class="flex items-center gap-2"><i data-lucide="file-plus" style="width:14px;height:14px;"></i> Generar conclusión</span> </button>
-      </div>
-     </div>
-    </section><!-- Completion -->
-    <div id="completionBanner" class="hidden rounded-xl p-6 text-center fade-in" style="background:linear-gradient(135deg,#064e3b,#065f46);border:1px solid #22c55e;">
-     <div class="text-3xl mb-2">
-      🎉
-     </div>
-     <h3 class="text-white font-bold text-lg mb-1">¡Documento Completamente Restaurado!</h3>
-     <p class="text-sm" style="color:#86efac;">Todas las 6 misiones completadas. El caso ha sido resuelto exitosamente. ¡Excelente agente!</p>
-    </div>
-    <div style="height:24px;"></div>
-   </main>
-  </div><!-- Toast -->
-  <div id="toast" class="toast" style="background:#22c55e;color:white;"></div>
-  <script>
-  const defaultConfig = {
-    main_title: 'OFICINA DE CASOS',
-    case_label: 'CASO #47-B',
     background_color: '#0f172a',
     surface_color: '#ffffff',
     text_color: '#94a3b8',
@@ -699,7 +412,7 @@
     font_size: 14
   };
 
-  let completed = { m1: false, m2: false, m3: false };
+  let completed = { m1: false, m2: false, m3: false, m4: false, m5: false, m6: false };
 
   // Element SDK
   window.elementSdk.init({
@@ -999,7 +712,10 @@
     }
   }
 
+  // Stub para botones de estilo decorativos en misión 5
+  function styleText(style) {}
+
   lucide.createIcons();
 </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f0cb7c6f706de5e',t:'MTc3Njk0NTczMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
